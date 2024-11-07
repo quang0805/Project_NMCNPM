@@ -4,8 +4,12 @@ import org.project.food_management.model.User;
 import org.project.food_management.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UserServiceImpl implements UserService{
+
+
     private UserRepository userRepository;
 
     public UserServiceImpl(UserRepository userRepository) {
@@ -26,5 +30,13 @@ public class UserServiceImpl implements UserService{
         return user;
     }
 
+    @Override
+    public User findUserByUserId(Long id) throws Exception {
+        Optional<User> optionalUser = userRepository.findById(id);
+        if(optionalUser.isEmpty()){
+            throw new Exception("user not found with id: "+ id);
+        }
+        return optionalUser.get();
+    }
 
 }

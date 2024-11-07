@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -23,6 +24,8 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private User customer;
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    List<OrderItem> orderItems;
 
     private OrderStatus orderStatus;
     private LocalDateTime order_time;
