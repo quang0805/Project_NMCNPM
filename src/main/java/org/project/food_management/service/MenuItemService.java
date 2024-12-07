@@ -10,4 +10,5 @@ public interface MenuItemService {
     public MenuItem createMenuItem(CreateMenuItemRequest req) throws Exception;
     public MenuItem changeStatusItem(Long id) throws Exception;
     public List<MenuItem> getAllMenuItem();
+    public MenuItem deleteItemById(Long id) throws Exception;
 }

@@ -42,4 +42,10 @@ public class MenuItemController {
         List<MenuItem> menuItemList = menuItemService.getAllMenuItem();
         return new ResponseEntity<>(menuItemList, HttpStatus.OK);
     }
+
+    @DeleteMapping("/menu/{id}")
+    public ResponseEntity<MenuItem> deleteItemById(@PathVariable("id") Long id) throws Exception {
+        MenuItem menuItem = menuItemService.deleteItemById(id);
+        return new ResponseEntity<>(menuItem, HttpStatus.OK);
+    }
 }

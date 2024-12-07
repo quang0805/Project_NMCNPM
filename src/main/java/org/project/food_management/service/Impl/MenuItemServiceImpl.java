@@ -50,4 +50,12 @@ public class MenuItemServiceImpl implements MenuItemService {
     public List<MenuItem> getAllMenuItem() {
         return menuItemRepository.findAll();
     }
+
+    @Override
+    public MenuItem deleteItemById(Long id) throws Exception {
+        MenuItem menuItem = findMenuItemById(id);
+        menuItemRepository.deleteById(id);
+        return menuItem;
+    }
+
 }
