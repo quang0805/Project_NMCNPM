@@ -6,7 +6,6 @@ import org.project.food_management.model.User;
 import org.project.food_management.repository.UserRepository;
 import org.project.food_management.request.LoginRequest;
 import org.project.food_management.request.SignUpRequest;
-import org.project.food_management.response.ResponseMassage;
 import org.project.food_management.response.UserResponse;
 import org.project.food_management.service.UserService;
 import org.springframework.http.HttpStatus;
@@ -27,7 +26,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @RestController
 @RequestMapping("/auth")
@@ -73,6 +71,7 @@ public class AuthController {
         userResponse.setEmail(savedUser.getEmail());
         userResponse.setJwt(jwtProvider.generateJwtToken(authentication));
         userResponse.setMessage("Sign up successfully!");
+        userResponse.setRole(savedUser.getRole().toString());
 
         return new ResponseEntity<>(userResponse, HttpStatus.CREATED);
     }
@@ -84,7 +83,6 @@ public class AuthController {
     )throws Exception{
         UserDetails user = userDetailsService.loadUserByUsername(req.getEmail());
         UserResponse userResponse = new UserResponse();
-
         userResponse.setEmail(req.getEmail());
 
         if(passwordEncoder.matches(req.getPassword(), user.getPassword())){
@@ -93,6 +91,7 @@ public class AuthController {
             Authentication authentication = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), user.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
             userResponse.setJwt(jwtProvider.generateJwtToken(authentication));
+            userResponse.setRole(user.getAuthorities().toString());
         }else{
             userResponse.setMessage("Login Fail!");
         }
