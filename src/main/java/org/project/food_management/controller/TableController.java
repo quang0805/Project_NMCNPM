@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin
 public class TableController {
@@ -27,6 +29,11 @@ public class TableController {
         return new ResponseEntity<>(tables, HttpStatus.CREATED);
     }
 
+    @GetMapping("/tables")
+    public ResponseEntity<List<Tables>> getAllTables() throws Exception {
+        List<Tables> tables = tablesService.getAllTable();
+        return new ResponseEntity<>(tables, HttpStatus.OK);
+    }
 
 
     @PutMapping("/api/admin/table")

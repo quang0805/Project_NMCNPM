@@ -6,6 +6,7 @@ import org.project.food_management.repository.TablesRepository;
 import org.project.food_management.service.TablesService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 @Service
 
@@ -49,6 +50,11 @@ public class TablesServiceImpl implements TablesService {
         }else{
             throw new Exception("Gia tri so ban da ton tai!");
         }
+    }
+
+    @Override
+    public List<Tables> getAllTable() throws Exception {
+        return tablesRepository.findAll();
     }
 
 }
