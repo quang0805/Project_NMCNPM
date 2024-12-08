@@ -1,7 +1,6 @@
 package org.project.food_management.controller;
 
 
-import org.project.food_management.model.TableStatus;
 import org.project.food_management.model.Tables;
 import org.project.food_management.request.ChangeTableStatusRequest;
 import org.project.food_management.service.TablesService;
@@ -33,6 +32,13 @@ public class TableController {
     public ResponseEntity<List<Tables>> getAllTables() throws Exception {
         List<Tables> tables = tablesService.getAllTable();
         return new ResponseEntity<>(tables, HttpStatus.OK);
+    }
+
+    @GetMapping("/tables/{id}")
+    public ResponseEntity<Tables> getTableById(@PathVariable("id") Long id) throws Exception{
+        Tables table = tablesService.loadTableById(id);
+        return new ResponseEntity<>(table, HttpStatus.OK);
+
     }
 
 
